@@ -362,38 +362,16 @@ components:
             type: string
             x-speakeasy-name-override: errorHtml
     Ok:
-      description: Response of the downstream service to the proxied request, returned as JSON, XML, plain
-        text or CSV depending on what the downstream service sends. When `x-apideck-follow-redirects`
-        is `false` and the downstream response would redirect to a presigned URL, a JSON object with `url`
-        and `expires_at` is returned instead
+      description: Response of the downstream service to the proxied request, with its status code, headers
+        and body. The body can be JSON (an object or an array), XML, plain text, CSV, binary content or
+        empty, depending on the downstream service. When `x-apideck-follow-redirects` is `false` and the
+        downstream response would redirect to a presigned URL, the body is a JSON object with `url` and
+        `expires_at` instead
       content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: true
-            x-speakeasy-name-override: responseJson
-        application/xml:
-          schema:
-            type: string
-            x-speakeasy-name-override: responseXml
-        text/plain:
-          schema:
-            type: string
-            x-speakeasy-name-override: responseText
-        text/csv:
-          schema:
-            type: string
-            x-speakeasy-name-override: responseCsv
-        application/pdf:
+        '*/*':
           schema:
             type: string
             format: binary
-            x-speakeasy-name-override: responsePdf
-        application/octet-stream:
-          schema:
-            type: string
-            format: binary
-            x-speakeasy-name-override: responseBinary
   parameters:
     id:
       name: id

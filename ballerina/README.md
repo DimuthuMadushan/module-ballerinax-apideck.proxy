@@ -41,6 +41,7 @@ To use the Apideck Proxy connector in your Ballerina application, update the `.b
 Import the `apideck.proxy` module.
 
 ```ballerina
+import ballerina/http;
 import ballerinax/apideck.proxy;
 ```
 
@@ -79,7 +80,7 @@ Now, utilize the available connector operations.
 
 ```ballerina
 public function main() returns error? {
-    record {} _ = check apideck->proxyGet({
+    http:Response _ = check apideck->proxyGet({
         "x-apideck-consumer-id": consumerId,
         "x-apideck-service-id": serviceId,
         "x-apideck-downstream-url": downstreamUrl

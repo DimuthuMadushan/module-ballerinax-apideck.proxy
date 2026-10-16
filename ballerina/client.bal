@@ -39,8 +39,8 @@ public isolated client class Client {
     # Proxy a downstream GET request
     #
     # + headers - Headers to be sent with the request 
-    # + return - Response of the downstream service to the proxied request, returned as JSON, XML, plain text or CSV depending on what the downstream service sends. When `x-apideck-follow-redirects` is `false` and the downstream response would redirect to a presigned URL, a JSON object with `url` and `expires_at` is returned instead 
-    remote isolated function proxyGet(map<string|string[]> headers = {}) returns record {}|error {
+    # + return - Response of the downstream service to the proxied request, with its status code, headers and body. The body can be JSON (an object or an array), XML, plain text, CSV, binary content or empty, depending on the downstream service. When `x-apideck-follow-redirects` is `false` and the downstream response would redirect to a presigned URL, the body is a JSON object with `url` and `expires_at` instead 
+    remote isolated function proxyGet(map<string|string[]> headers = {}) returns http:Response|error {
         string resourcePath = string `/proxy`;
         map<anydata> headerValues = {...headers};
         headerValues["Authorization"] = self.apiKeyConfig.authorization;
@@ -53,8 +53,8 @@ public isolated client class Client {
     #
     # + headers - Headers to be sent with the request 
     # + payload - Depending on the verb/method of the request this will contain the request body you want to POST/PATCH/PUT 
-    # + return - Response of the downstream service to the proxied request, returned as JSON, XML, plain text or CSV depending on what the downstream service sends. When `x-apideck-follow-redirects` is `false` and the downstream response would redirect to a presigned URL, a JSON object with `url` and `expires_at` is returned instead 
-    remote isolated function proxyPut(ProxyRequestBody payload, map<string|string[]> headers = {}) returns record {}|error {
+    # + return - Response of the downstream service to the proxied request, with its status code, headers and body. The body can be JSON (an object or an array), XML, plain text, CSV, binary content or empty, depending on the downstream service. When `x-apideck-follow-redirects` is `false` and the downstream response would redirect to a presigned URL, the body is a JSON object with `url` and `expires_at` instead 
+    remote isolated function proxyPut(ProxyRequestBody payload, map<string|string[]> headers = {}) returns http:Response|error {
         string resourcePath = string `/proxy`;
         map<anydata> headerValues = {...headers};
         headerValues["Authorization"] = self.apiKeyConfig.authorization;
@@ -70,8 +70,8 @@ public isolated client class Client {
     #
     # + headers - Headers to be sent with the request 
     # + payload - Depending on the verb/method of the request this will contain the request body you want to POST/PATCH/PUT 
-    # + return - Response of the downstream service to the proxied request, returned as JSON, XML, plain text or CSV depending on what the downstream service sends. When `x-apideck-follow-redirects` is `false` and the downstream response would redirect to a presigned URL, a JSON object with `url` and `expires_at` is returned instead 
-    remote isolated function proxyPost(ProxyRequestBody payload, map<string|string[]> headers = {}) returns record {}|error {
+    # + return - Response of the downstream service to the proxied request, with its status code, headers and body. The body can be JSON (an object or an array), XML, plain text, CSV, binary content or empty, depending on the downstream service. When `x-apideck-follow-redirects` is `false` and the downstream response would redirect to a presigned URL, the body is a JSON object with `url` and `expires_at` instead 
+    remote isolated function proxyPost(ProxyRequestBody payload, map<string|string[]> headers = {}) returns http:Response|error {
         string resourcePath = string `/proxy`;
         map<anydata> headerValues = {...headers};
         headerValues["Authorization"] = self.apiKeyConfig.authorization;
@@ -86,8 +86,8 @@ public isolated client class Client {
     # Proxy a downstream DELETE request
     #
     # + headers - Headers to be sent with the request 
-    # + return - Response of the downstream service to the proxied request, returned as JSON, XML, plain text or CSV depending on what the downstream service sends. When `x-apideck-follow-redirects` is `false` and the downstream response would redirect to a presigned URL, a JSON object with `url` and `expires_at` is returned instead 
-    remote isolated function proxyDelete(map<string|string[]> headers = {}) returns record {}|error {
+    # + return - Response of the downstream service to the proxied request, with its status code, headers and body. The body can be JSON (an object or an array), XML, plain text, CSV, binary content or empty, depending on the downstream service. When `x-apideck-follow-redirects` is `false` and the downstream response would redirect to a presigned URL, the body is a JSON object with `url` and `expires_at` instead 
+    remote isolated function proxyDelete(map<string|string[]> headers = {}) returns http:Response|error {
         string resourcePath = string `/proxy`;
         map<anydata> headerValues = {...headers};
         headerValues["Authorization"] = self.apiKeyConfig.authorization;
@@ -100,8 +100,8 @@ public isolated client class Client {
     #
     # + headers - Headers to be sent with the request 
     # + payload - Depending on the verb/method of the request this will contain the request body you want to POST/PATCH/PUT 
-    # + return - Response of the downstream service to the proxied request, returned as JSON, XML, plain text or CSV depending on what the downstream service sends. When `x-apideck-follow-redirects` is `false` and the downstream response would redirect to a presigned URL, a JSON object with `url` and `expires_at` is returned instead 
-    remote isolated function proxyPatch(ProxyRequestBody payload, map<string|string[]> headers = {}) returns record {}|error {
+    # + return - Response of the downstream service to the proxied request, with its status code, headers and body. The body can be JSON (an object or an array), XML, plain text, CSV, binary content or empty, depending on the downstream service. When `x-apideck-follow-redirects` is `false` and the downstream response would redirect to a presigned URL, the body is a JSON object with `url` and `expires_at` instead 
+    remote isolated function proxyPatch(ProxyRequestBody payload, map<string|string[]> headers = {}) returns http:Response|error {
         string resourcePath = string `/proxy`;
         map<anydata> headerValues = {...headers};
         headerValues["Authorization"] = self.apiKeyConfig.authorization;
@@ -116,8 +116,8 @@ public isolated client class Client {
     # Proxy a downstream OPTIONS request
     #
     # + headers - Headers to be sent with the request 
-    # + return - Response of the downstream service to the proxied request, returned as JSON, XML, plain text or CSV depending on what the downstream service sends. When `x-apideck-follow-redirects` is `false` and the downstream response would redirect to a presigned URL, a JSON object with `url` and `expires_at` is returned instead 
-    remote isolated function proxyOptions(map<string|string[]> headers = {}) returns record {}|error {
+    # + return - Response of the downstream service to the proxied request, with its status code, headers and body. The body can be JSON (an object or an array), XML, plain text, CSV, binary content or empty, depending on the downstream service. When `x-apideck-follow-redirects` is `false` and the downstream response would redirect to a presigned URL, the body is a JSON object with `url` and `expires_at` instead 
+    remote isolated function proxyOptions(map<string|string[]> headers = {}) returns http:Response|error {
         string resourcePath = string `/proxy`;
         map<anydata> headerValues = {...headers};
         headerValues["Authorization"] = self.apiKeyConfig.authorization;

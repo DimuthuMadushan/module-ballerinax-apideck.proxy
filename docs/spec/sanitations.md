@@ -36,6 +36,9 @@ These changes are done in order to improve the overall usability, and as workaro
 8. **Response descriptions**: The `components/responses` descriptions are rewritten: `Ok` now says it is the downstream service's response (JSON, XML, plain text or CSV, or the `{ url, expires_at }` object when `x-apideck-follow-redirects` is `false`), `Unauthorized` says the Apideck API key or application ID is missing or invalid, and `ProxyError` says the request could not be forwarded or the downstream service returned an error, flagged by the `x-apideck-downstream-error` header.
    - **Reason**: The `# + return -` lines of all six remote methods are derived from the `200` response description, which was a conditional note rather than a statement of what is returned.
 
+9. **Response body type**: The shared `components/responses/Ok` response declared seven media types (`application/json` object, XML, text, CSV, PDF and octet-stream strings), which the generator turned into a `record {}|error` return on every method. The content is replaced with a single `*/*` entry whose schema is `type: string, format: binary`, and the description now says the response carries the downstream status code, headers and body (JSON object or array, XML, text, CSV, binary or empty), so every method returns `http:Response|error`. This supersedes the wording of item 8 for the `Ok` description.
+   - **Reason**: A pass-through proxy cannot promise a body shape. A JSON array, a non-JSON body or an empty response (for example a 204 from a downstream DELETE) failed data binding to `record {}`, and callers could not read the status code or headers.
+
 ## OpenAPI cli command
 
 The following command was used to generate the Ballerina client from the OpenAPI specification. The command should be executed from the repository root directory.

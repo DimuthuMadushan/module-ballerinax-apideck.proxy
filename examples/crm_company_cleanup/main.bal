@@ -1,5 +1,6 @@
 // Checks what a downstream CRM company endpoint allows, renames a company, and optionally deletes it through the Apideck proxy.
 
+import ballerina/http;
 import ballerina/io;
 import ballerinax/apideck.proxy;
 
@@ -21,13 +22,13 @@ public function main() returns error? {
     };
 
     // Step 1: Discover which methods the downstream company endpoint supports.
-    record {} options = check apideck->proxyOptions(headers);
-    io:println("Supported methods response: ", options.toJsonString());
+    http:Response options = check apideck->proxyOptions(headers);
+    io:println("Supported methods response status: ", options.statusCode);
 
     // Step 2: Rename the company.
     proxy:ProxyRequestBody update = {"name": newCompanyName};
-    record {} updated = check apideck->proxyPatch(update, headers);
-    io:println("Updated company response: ", updated.toJsonString());
+    http:Response updated = check apideck->proxyPatch(update, headers);
+    io:println("Updated company response status: ", updated.statusCode);
 
     if !deleteCompany {
         io:println("deleteCompany is false, keeping the company.");
@@ -35,6 +36,6 @@ public function main() returns error? {
     }
 
     // Step 3: Remove the company.
-    record {} deleted = check apideck->proxyDelete(headers);
-    io:println("Deleted company response: ", deleted.toJsonString());
+    http:Response deleted = check apideck->proxyDelete(headers);
+    io:println("Deleted company response status: ", deleted.statusCode);
 }

@@ -1,5 +1,6 @@
 // Reads the companies a downstream CRM currently holds, then onboards a new company through the Apideck proxy.
 
+import ballerina/http;
 import ballerina/io;
 import ballerinax/apideck.proxy;
 
@@ -22,8 +23,8 @@ public function main() returns error? {
     };
 
     // Step 1: List the companies the downstream CRM already holds.
-    record {} existing = check apideck->proxyGet(headers);
-    io:println("Existing companies response: ", existing.toJsonString());
+    http:Response existing = check apideck->proxyGet(headers);
+    io:println("Existing companies response status: ", existing.statusCode);
 
     if !createCompany {
         io:println("createCompany is false, skipping the write.");
@@ -32,6 +33,6 @@ public function main() returns error? {
 
     // Step 2: Create the new company in the downstream CRM.
     proxy:ProxyRequestBody company = {"name": companyName, "website": companyWebsite};
-    record {} created = check apideck->proxyPost(company, headers);
-    io:println("Created company response: ", created.toJsonString());
+    http:Response created = check apideck->proxyPost(company, headers);
+    io:println("Created company response status: ", created.statusCode);
 }

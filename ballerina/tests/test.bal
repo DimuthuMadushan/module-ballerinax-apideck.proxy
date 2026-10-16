@@ -35,39 +35,51 @@ final Client apideck = check new ({authorization: apiKey, xApideckAppId: appId},
 
 @test:Config {groups: ["live_tests", "mock_tests"]}
 function testProxyGet() returns error? {
-    record {} response = check apideck->proxyGet(proxyHeaders);
-    test:assertTrue(response.length() > 0);
+    http:Response response = check apideck->proxyGet(proxyHeaders);
+    test:assertEquals(response.statusCode, 200);
+    json body = check response.getJsonPayload();
+    test:assertTrue(body is map<json>);
 }
 
 @test:Config {groups: ["live_tests", "mock_tests"]}
 function testProxyOptions() returns error? {
-    record {} response = check apideck->proxyOptions(proxyHeaders);
-    test:assertTrue(response.length() > 0);
+    http:Response response = check apideck->proxyOptions(proxyHeaders);
+    test:assertEquals(response.statusCode, 200);
+    json body = check response.getJsonPayload();
+    test:assertTrue(body is map<json>);
 }
 
 @test:Config {groups: ["mock_tests"]}
 function testProxyPost() returns error? {
     ProxyRequestBody payload = {"name": "Bluth Company", "url": "http://thebluthcompany.tumblr.com/"};
-    record {} response = check apideck->proxyPost(payload, proxyHeaders);
-    test:assertTrue(response.length() > 0);
+    http:Response response = check apideck->proxyPost(payload, proxyHeaders);
+    test:assertEquals(response.statusCode, 201);
+    json body = check response.getJsonPayload();
+    test:assertTrue(body is map<json>);
 }
 
 @test:Config {groups: ["mock_tests"]}
 function testProxyPut() returns error? {
     ProxyRequestBody payload = {"name": "Rich Company"};
-    record {} response = check apideck->proxyPut(payload, proxyHeaders);
-    test:assertTrue(response.length() > 0);
+    http:Response response = check apideck->proxyPut(payload, proxyHeaders);
+    test:assertEquals(response.statusCode, 200);
+    json body = check response.getJsonPayload();
+    test:assertTrue(body is map<json>);
 }
 
 @test:Config {groups: ["mock_tests"]}
 function testProxyPatch() returns error? {
     ProxyRequestBody payload = {"name": "Bluth Company"};
-    record {} response = check apideck->proxyPatch(payload, proxyHeaders);
-    test:assertTrue(response.length() > 0);
+    http:Response response = check apideck->proxyPatch(payload, proxyHeaders);
+    test:assertEquals(response.statusCode, 200);
+    json body = check response.getJsonPayload();
+    test:assertTrue(body is map<json>);
 }
 
 @test:Config {groups: ["mock_tests"]}
 function testProxyDelete() returns error? {
-    record {} response = check apideck->proxyDelete(proxyHeaders);
-    test:assertTrue(response.length() > 0);
+    http:Response response = check apideck->proxyDelete(proxyHeaders);
+    test:assertEquals(response.statusCode, 200);
+    json body = check response.getJsonPayload();
+    test:assertTrue(body is map<json>);
 }
